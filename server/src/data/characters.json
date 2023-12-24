@@ -1,0 +1,1531 @@
+{
+  "scripts": [
+    {
+      "key": "trouble-brewing",
+      "name": "Trouble Brewing",
+      "difficulty": 1,
+      "description": "",
+      "icon": "",
+      "characters": {
+        "townsfolk": [
+          {
+            "key": "washerwoman",
+            "name": "Washerwoman",
+            "description": "You start knowing that 1 of 2 players is a particular Townsfolk.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "first-night",
+                "priority": -1,
+                "rules": [
+                  {
+                    "type": "learn",
+                    "context": "Either ${1} or ${2} is the ${0}",
+                    "rules": {
+                      "type": "character",
+                      "selector": "character-of",
+                      "context": {
+                        "type": "player",
+                        "selector": "add-false",
+                        "focus": {
+                          "type": "player",
+                          "selector": "choose",
+                          "picker": {
+                            "type": "character",
+                            "selector": "story-teller"
+                          },
+                          "options": {
+                            "type": "set",
+                            "function": "difference",
+                            "sets": [
+                              {
+                                "type": "player-list",
+                                "selector": "all-townsfolk"
+                              },
+                              {
+                                "type": "player",
+                                "selector": "self"
+                              }
+                            ]
+                          },
+                          "referenceable": 1
+                        },
+                        "distraction": {
+                          "type": "player",
+                          "selector": "choose",
+                          "picker": {
+                            "type": "character",
+                            "class": "story-teller"
+                          },
+                          "options": {
+                            "type": "set",
+                            "function": "difference",
+                            "sets": [
+                              {
+                                "type": "player-list",
+                                "selector": "all"
+                              },
+                              {
+                                "type": "player",
+                                "reference": 1
+                              },
+                              {
+                                "type": "player",
+                                "selector": "self"
+                              }
+                            ]
+                          },
+                          "referenceable": 2
+                        }
+                      },
+                      "referenceable": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "librarian",
+            "name": "Librarian",
+            "description": "You start knowing that 1 or 2 players is a particular Outsider. (Or that zero are in play.)",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "first-night",
+                "priority": -1,
+                "rules": [
+                  {
+                    "type": "if",
+                    "condition": {
+                      "type": "boolean",
+                      "query": "gt",
+                      "values": [
+                        {
+                          "type": "number",
+                          "operator": "count-of",
+                          "set": {
+                            "type": "player-list",
+                            "selector": "all-outsiders"
+                          }
+                        },
+                        {
+                          "type": "number",
+                          "value": 0
+                        }
+                      ]
+                    },
+                    "rules": [
+                      {
+                        "type": "learn",
+                        "context": "Either ${1} or ${2} is the ${0}",
+                        "rules": {
+                          "type": "character",
+                          "selector": "character-of",
+                          "context": {
+                            "type": "player",
+                            "selector": "add-false",
+                            "focus": {
+                              "type": "player",
+                              "selector": "choose",
+                              "picker": {
+                                "type": "character",
+                                "selector": "story-teller"
+                              },
+                              "options": {
+                                "type": "set",
+                                "function": "difference",
+                                "sets": [
+                                  {
+                                    "type": "player-list",
+                                    "selector": "all-outsider"
+                                  },
+                                  {
+                                    "type": "player",
+                                    "selector": "self"
+                                  }
+                                ]
+                              },
+                              "referenceable": 1
+                            },
+                            "distraction": {
+                              "type": "player",
+                              "selector": "choose",
+                              "picker": {
+                                "type": "character",
+                                "class": "story-teller"
+                              },
+                              "options": {
+                                "type": "set",
+                                "function": "difference",
+                                "sets": [
+                                  {
+                                    "type": "player-list",
+                                    "selector": "all"
+                                  },
+                                  {
+                                    "type": "player",
+                                    "reference": 1
+                                  },
+                                  {
+                                    "type": "player",
+                                    "selector": "self"
+                                  }
+                                ]
+                              },
+                              "referenceable": 2
+                            }
+                          },
+                          "referenceable": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "else",
+                    "rules": {
+                      "type": "learn",
+                      "context": "There are ${3} Outsiders.",
+                      "rules": {
+                        "type": "number",
+                        "operator": "count-of",
+                        "set": {
+                          "type": "player-list",
+                          "selector": "all-outsiders"
+                        },
+                        "referenceable": 3
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "investigator",
+            "name": "Investigator",
+            "description": "You start knowing that 1 of 2 players is a particular Minion.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "first-night",
+                "priority": -1,
+                "rules": [
+                  {
+                    "type": "learn",
+                    "context": "Either ${1} or ${2} is the ${0}",
+                    "rules": {
+                      "type": "character",
+                      "selector": "character-of",
+                      "context": {
+                        "type": "player",
+                        "selector": "add-false",
+                        "focus": {
+                          "type": "player",
+                          "selector": "choose",
+                          "picker": {
+                            "type": "character",
+                            "selector": "story-teller"
+                          },
+                          "options": {
+                            "type": "set",
+                            "function": "difference",
+                            "sets": [
+                              {
+                                "type": "player-list",
+                                "selector": "all-minions"
+                              },
+                              {
+                                "type": "player",
+                                "selector": "self"
+                              }
+                            ]
+                          },
+                          "referenceable": 1
+                        },
+                        "distraction": {
+                          "type": "player",
+                          "selector": "choose",
+                          "picker": {
+                            "type": "character",
+                            "class": "story-teller"
+                          },
+                          "options": {
+                            "type": "set",
+                            "function": "difference",
+                            "sets": [
+                              {
+                                "type": "player-list",
+                                "selector": "all"
+                              },
+                              {
+                                "type": "player",
+                                "reference": 1
+                              },
+                              {
+                                "type": "player",
+                                "selector": "self"
+                              }
+                            ]
+                          },
+                          "referenceable": 2
+                        }
+                      },
+                      "referenceable": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "chef",
+            "name": "Chef",
+            "description": "You start knowing how many pairs of evil players there are.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "first-night",
+                "priority": -1,
+                "rules": [
+                  {
+                    "type": "learn",
+                    "context": "There are ${0} pairs of evil players.",
+                    "rules": {
+                      "type": "number",
+                      "operator": "divide",
+                      "value": {
+                        "type": "number",
+                        "operator": "count-of",
+                        "set": {
+                          "type": "player-list",
+                          "selector": "all-evil"
+                        }
+                      },
+                      "divisor": {
+                        "type": "number",
+                        "value": 2
+                      },
+                      "round": "floor",
+                      "referenceable": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "empath",
+            "name": "Empath",
+            "description": "Each night, you learn how many of your 2 alive neighbors are evil.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "every-night",
+                "priority": -1,
+                "rules": {
+                  "type": "learn",
+                  "context": "${0} of your alive neighbors are evil.",
+                  "rules": {
+                    "type": "number",
+                    "operator": "count-of",
+                    "set": {
+                      "type": "set",
+                      "function": "filter",
+                      "set": {
+                        "type": "player-list",
+                        "selector": "adjacents",
+                        "center": {
+                          "type": "player",
+                          "selector": "self"
+                        },
+                        "distance": {
+                          "type": "number",
+                          "value": 1
+                        },
+                        "direction": "both"
+                      },
+                      "condition": {
+                        "type": "boolean",
+                        "query": "is-evil",
+                        "context": {
+                          "type": "player",
+                          "reference": 1
+                        }
+                      },
+                      "referenceableCurrent": 1,
+                      "referenceable": 0
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "key": "fortune-teller",
+            "name": "Fortune Teller",
+            "description": "Each night, choose 2 players: you learn if either is a Demon. There is a good player that registers as a Demon to you.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "set-up",
+                "rules": [
+                  {
+                    "type": "player-variable",
+                    "operation": "set",
+                    "key": "fortune-teller-false-positive-player",
+                    "value": {
+                      "type": "player",
+                      "selector": "choose",
+                      "picker": {
+                        "type": "character",
+                        "selector": "story-teller"
+                      },
+                      "options": {
+                        "type": "set",
+                        "function": "difference",
+                        "sets": [
+                          {
+                            "type": "player-list",
+                            "selector": "all-good"
+                          },
+                          {
+                            "type": "player",
+                            "selector": "self"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "event",
+                "value": "every-night",
+                "priority": -1,
+                "rules": {
+                  "type": "learn",
+                  "context": "There ${0 ? \"is\" : \"is not\"} a Demon among the players you selected.",
+                  "rules": {
+                    "type": "boolean",
+                    "query": "includes",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    },
+                    "set": {
+                      "type": "set",
+                      "function": "map",
+                      "set": {
+                        "type": "player-list",
+                        "selector": "choose-many",
+                        "picker": {
+                          "type": "player",
+                          "selector": "self"
+                        },
+                        "options": {
+                          "type": "player-list",
+                          "selector": "all"
+                        },
+                        "count": {
+                          "type": "number",
+                          "value": 2
+                        }
+                      },
+                      "modifier": {
+                        "type": "boolean",
+                        "query": "or",
+                        "conditions": [
+                          {
+                            "type": "boolean",
+                            "query": "is-demon",
+                            "context": {
+                              "type": "player",
+                              "reference": 1
+                            }
+                          },
+                          {
+                            "type": "boolean",
+                            "query": "equals",
+                            "values": [
+                              {
+                                "type": "player-variable",
+                                "operation": "get",
+                                "key": "fortune-teller-false-positive-player"
+                              },
+                              {
+                                "type": "player",
+                                "reference": 1
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "referenceableCurrent": 1
+                    },
+                    "referenceable": 0
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "key": "undertaker",
+            "name": "Undertaker",
+            "description": "Each night (but not the first night), you learn which character died by execution today.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "every-subsequent-night",
+                "priority": -1,
+                "rules": [
+                  {
+                    "type": "if",
+                    "condition": {
+                      "type": "boolean",
+                      "query": "gt",
+                      "values": [
+                        {
+                          "type": "number",
+                          "operator": "count-of",
+                          "set": {
+                            "type": "execution-list",
+                            "day": {
+                              "type": "day",
+                              "selector": "today"
+                            }
+                          }
+                        },
+                        {
+                          "type": "number",
+                          "value": 0
+                        }
+                      ]
+                    },
+                    "rules": [
+                      {
+                        "type": "learn",
+                        "context": "The player executed last night was the ${0}.",
+                        "rules": [
+                          {
+                            "type": "character",
+                            "selector": "character-of",
+                            "context": {
+                              "type": "player",
+                              "selector": "nominee",
+                              "context": {
+                                "type": "execution",
+                                "selector": "last"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "monk",
+            "name": "Monk",
+            "description": "Each night (but not the first night), choose a player (not yourself): they are safe from the Demon today.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "every-subsequent-night",
+                "priority": -1,
+                "rules": [
+                  {
+                    "type": "if",
+                    "condition": [
+                      {
+                        "type": "boolean",
+                        "query": "equals",
+                        "values": [
+                          {
+                            "type": "status",
+                            "value": "no"
+                          },
+                          {
+                            "type": "status",
+                            "debuff": "murder-resistance",
+                            "action": "get",
+                            "target": {
+                              "type": "player",
+                              "selector": "choose",
+                              "picker": {
+                                "type": "player",
+                                "selector": "self"
+                              },
+                              "options": {
+                                "type": "set",
+                                "function": "difference",
+                                "sets": [
+                                  {
+                                    "type": "player-list",
+                                    "selector": "all"
+                                  },
+                                  {
+                                    "type": "player",
+                                    "selector": "self"
+                                  }
+                                ]
+                              },
+                              "referenceable": 0
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "rules": {
+                      "type": "status",
+                      "debuff": "murder-resistance",
+                      "action": "set",
+                      "target": {
+                        "type": "player",
+                        "reference": 0
+                      },
+                      "status": "1-day"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "ravenkeeper",
+            "name": "Ravenkeeper",
+            "description": "If you die at night, you are woken to choose a player: you learn their character.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "every-night",
+                "priority": -1,
+                "rules": [
+                  {
+                    "type": "if",
+                    "condition": {
+                      "type": "boolean",
+                      "query": "includes",
+                      "value": {
+                        "type": "player",
+                        "selector": "self"
+                      },
+                      "set": {
+                        "type": "set",
+                        "function": "map",
+                        "modifier": {
+                          "type": "player",
+                          "selector": "victim",
+                          "context": {
+                            "type": "murder",
+                            "reference": 0
+                          }
+                        },
+                        "set": {
+                          "type": "murder-list",
+                          "day": {
+                            "type": "day",
+                            "selector": "today"
+                          }
+                        },
+                        "referenceableCurrent": 0
+                      }
+                    },
+                    "rules": [
+                      {
+                        "type": "learn",
+                        "context": "${1} is the ${2}.",
+                        "rules": [
+                          {
+                            "type": "character",
+                            "selector": "character-of",
+                            "context": {
+                              "type": "player",
+                              "selector": "choose",
+                              "picker": {
+                                "type": "player",
+                                "selector": "self"
+                              },
+                              "options": {
+                                "type": "player-list",
+                                "selector": "all"
+                              },
+                              "referenceable": 1
+                            },
+                            "referenceable": 2
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "virgin",
+            "name": "Virgin",
+            "description": "The 1st time you are nominated, if the nominator is a Townsfolk, they are executed immediately.",
+            "icon": "base-virgin",
+            "rules": [
+              {
+                "type": "event",
+                "value": "nomination",
+                "referenceable": 0,
+                "rules": [
+                  {
+                    "type": "limited-uses",
+                    "count": 1,
+                    "rules": [
+                      {
+                        "type": "if",
+                        "condition": {
+                          "type": "boolean",
+                          "query": "and",
+                          "conditions": [
+                            {
+                              "type": "boolean",
+                              "query": "equals",
+                              "values": [
+                                {
+                                  "type": "player",
+                                  "selector": "self"
+                                },
+                                {
+                                  "type": "player",
+                                  "selector": "nominee",
+                                  "context": {
+                                    "type": "nomination",
+                                    "reference": 0
+                                  },
+                                  "referenceable": 1
+                                }
+                              ]
+                            },
+                            {
+                              "type": "boolean",
+                              "query": "is-townsfolk",
+                              "context": {
+                                "type": "player",
+                                "selector": "nominator",
+                                "context": {
+                                  "type": "nomination",
+                                  "reference": 0
+                                },
+                                "referenceable": 2
+                              }
+                            }
+                          ]
+                        },
+                        "rules": [
+                          {
+                            "type": "execute",
+                            "target": {
+                              "type": "player",
+                              "reference": 2
+                            },
+                            "force": {
+                              "type": "boolean",
+                              "value": true
+                            },
+                            "daily": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "type": "proclaimation",
+                            "content": "${2} accused the Virgin ${1}, and will hereby be executed instead.",
+                            "icon": "base-virgin"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "slayer",
+            "name": "Slayer",
+            "description": "Once per game, during the day, publicly choose a player: if they are the Demon, they die.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "day-anytime",
+                "rules": [
+                  {
+                    "type": "optional",
+                    "rules": [
+                      {
+                        "type": "limited-uses",
+                        "count": 1,
+                        "rules": [
+                          {
+                            "type": "if",
+                            "condition": {
+                              "type": "boolean",
+                              "query": "is-demon",
+                              "context": {
+                                "type": "player",
+                                "selector": "choose",
+                                "picker": {
+                                  "type": "player",
+                                  "selector": "self"
+                                },
+                                "options": {
+                                  "type": "player-list",
+                                  "selector": "all"
+                                },
+                                "public": {
+                                  "type": "boolean",
+                                  "value": true
+                                },
+                                "referenceable": 0
+                              }
+                            },
+                            "rules": [
+                              {
+                                "type": "kill",
+                                "target": {
+                                  "type": "player",
+                                  "reference": 0
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "soldier",
+            "name": "Soldier",
+            "description": "You are safe from the Demon.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "passive",
+                "rules": [
+                  {
+                    "type": "status",
+                    "debuff": "murder-resistance",
+                    "action": "set",
+                    "target": {
+                      "type": "player",
+                      "selector": "self"
+                    },
+                    "status": "yes"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "mayor",
+            "name": "Mayor",
+            "description": "If only 3 players live & no execution occurs, your team wins. If you die at night, another player might die instead.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "dusk",
+                "rules": [
+                  {
+                    "type": "if",
+                    "condition": {
+                      "type": "boolean",
+                      "query": "and",
+                      "conditions": [
+                        {
+                          "type": "boolean",
+                          "query": "equals",
+                          "values": [
+                            {
+                              "type": "number",
+                              "operator": "count-of",
+                              "set": {
+                                "type": "player-list",
+                                "selector": "all-living"
+                              }
+                            },
+                            {
+                              "type": "number",
+                              "value": 3
+                            }
+                          ]
+                        },
+                        {
+                          "type": "boolean",
+                          "query": "equals",
+                          "values": [
+                            {
+                              "type": "number",
+                              "operator": "count-of",
+                              "set": {
+                                "type": "execution-list",
+                                "day": {
+                                  "type": "day",
+                                  "selector": "today"
+                                }
+                              }
+                            },
+                            {
+                              "type": "number",
+                              "value": 0
+                            }
+                          ]
+                        },
+                      ]
+                    },
+                    "rules": [
+                      {
+                        "type": "win",
+                        "alignment": {
+                          "type": "alignment",
+                          "selector": "alignment-of",
+                          "context": {
+                            "type": "player",
+                            "selector": "self"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "event",
+                "value": "murder",
+                "referenceable": 0,
+                "rules": [
+                  {
+                    "type": "if",
+                    "condition": {
+                      "type": "boolean",
+                      "query": "equals",
+                      "values": [
+                        {
+                          "type": "player",
+                          "selector": "self"
+                        },
+                        {
+                          "type": "player",
+                          "selector": "victim",
+                          "context": {
+                            "type": "murder",
+                            "reference": 0
+                          }
+                        }
+                      ]
+                    },
+                    "rules": [
+                      {
+                        "type": "optional",
+                        "rules": [
+                          {
+                            "type": "change-victim",
+                            "context": {
+                              "type": "murder",
+                              "reference": 0
+                            },
+                            "victim": {
+                              "type": "player",
+                              "selector": "choose",
+                              "picker": {
+                                "type": "character",
+                                "selector": "story-teller"
+                              },
+                              "options": {
+                                "type": "player-list",
+                                "selector": "all"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outsiders": [
+          {
+            "key": "butler",
+            "name": "Butler",
+            "description": "Each night, choose a player (not yourself): tomorrow, you may only vote if they are voting too.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "every-night",
+                "rules": [
+                  {
+                    "type": "player-variable",
+                    "operation": "set",
+                    "key": "butler-boss",
+                    "value": {
+                      "type": "player",
+                      "selector": "choose",
+                      "picker": {
+                        "type": "player",
+                        "selector": "self"
+                      },
+                      "options": {
+                        "type": "set",
+                        "function": "difference",
+                        "sets": [
+                          {
+                            "type": "player-list",
+                            "selector": "all"
+                          },
+                          {
+                            "type": "player",
+                            "selector": "self"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "event",
+                "value": "nomination",
+                "rules": [
+                  {
+                    "type": "status",
+                    "debuff": "able-voter",
+                    "action": "set",
+                    "target": {
+                      "type": "player",
+                      "selector": "self"
+                    },
+                    "status": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "event",
+                "value": "player-votes",
+                "referenceable": 0,
+                "rules": [
+                  {
+                    "type": "if",
+                    "condition": {
+                      "type": "boolean",
+                      "query": "equals",
+                      "values": [
+                        {
+                          "type": "player",
+                          "selector": "voter",
+                          "context": {
+                            "type": "vote",
+                            "reference": 0
+                          }
+                        },
+                        {
+                          "type": "player-variable",
+                          "operation": "get",
+                          "key": "butler-boss"
+                        }
+                      ]
+                    },
+                    "rules": [
+                      {
+                        "type": "status",
+                        "debuff": "able-voter",
+                        "action": "set",
+                        "target": {
+                          "type": "player",
+                          "selector": "self"
+                        },
+                        "status": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "drunk",
+            "name": "Drunk",
+            "description": "You do not know you are the Drunk. You think you are a Townsfolk character, but you are not.",
+            "icon": "",
+            "rules": [
+              {
+                "type": "event",
+                "value": "set-up",
+                "rules": [
+                  {
+                    "type": "perception",
+                    "aspect": "character",
+                    "who": {
+                      "type": "player",
+                      "selector": "self"
+                    },
+                    "to": {
+                      "type": "player",
+                      "selector": "self"
+                    },
+                    "character": {
+                      "type": "character",
+                      "selector": "choose",
+                      "picker": {
+                        "type": "character",
+                        "selector": "story-teller"
+                      },
+                      "options": {
+                        "type": "set",
+                        "function": "filter",
+                        "referenceableCurrent": 0,
+                        "condition": {
+                          "type": "boolean",
+                          "query": "is-townsfolk",
+                          "context": {
+                            "type": "character",
+                            "reference": 0
+                          }
+                        },
+                        "sets": [
+                          {
+                            "type": "character",
+                            "selector": "unused"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "drunk-abilities",
+                    "character": {
+                      "type": "character",
+                      "reference": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "recluse",
+            "name": "Recluse",
+            "description": "You might register as evil & as a Minion or Demon, even if dead.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "saint",
+            "name": "Saint",
+            "description": "If you die by execution, your team loses.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+        ],
+        "minions": [
+          {
+            "key": "poisoner",
+            "name": "Poisoner",
+            "description": "Each night, choose a player: they are poisoned tonight and tomorrow day.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "spy",
+            "name": "Spy",
+            "description": "Each night, you see the Grimoire. You might register as good & as a Townsfolk or Outsider, even if dead.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "baron",
+            "name": "Baron",
+            "description": "There are extra Outsiders in play. (+2 Outsiders)",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "scarlet-woman",
+            "name": "Scarlet Woman",
+            "description": "If there are 5 or more players alive & the Demon dies, you become the Demon. (Travellers don't count.)",
+            "icon": "",
+            "rules": [
+            ]
+          },
+        ],
+        "demon": [
+          {
+            "key": "imp",
+            "name": "Imp",
+            "description": "Each night (but not the first night), choose a player: they die. If you kill yourself this way, a Minion becomes the Imp.",
+            "icon": "",
+            "rules": [
+            ]
+          }
+        ],
+        "travelers": [
+          {
+            "key": "thief",
+            "name": "Thief",
+            "description": "Each night, choose a player (not yourself): their vote counts negatively tomorrow.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "bureaucrat",
+            "name": "Bureaucrat",
+            "description": "Each night, choose a player (not yourself): their vote counts as 3 votes tomorrow.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "gunslinger",
+            "name": "Gunslinger",
+            "description": "Each day, after the 1st vote has been tallied, you may choose a player that voted: they die.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "scapegoat",
+            "name": "Scapegoat",
+            "description": "If a player of your alignment is executed, you might be executed instead.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "beggar",
+            "name": "Beggar",
+            "description": "You must use a vote token to vote. If a dead player gives you theirs, you learn their alignment. You are sober & healthy.",
+            "icon": "",
+            "rules": [
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "key": "bad-moon-rising",
+      "name": "Bad Moon Rising",
+      "difficulty": 2,
+      "description": "",
+      "icon": "",
+      "characters": {
+        "townsfolk": [
+          {
+            "key": "grandmother",
+            "name": "Grandmother",
+            "description": "You start knowning a good player & their character. If the Demon kills them, you die too.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "sailor",
+            "name": "Sailor",
+            "description": "Each night, choose an alive player: either you or they are drunk until dusk. You can't die.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "chambermaid",
+            "name": "Chambermaid",
+            "description": "Each night, choose 2 alive players (not yourself): you learn how many woke tonight due to their ability.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "exorcist",
+            "name": "Exorcist",
+            "description": "Each night (but not the first night), choose a player (different to last night): the Demon, if chosen, learns who you are then doesn't wake tonight.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "innkeeper",
+            "name": "Innkeeper",
+            "description": "Each night (but not the first night), choose 2 players: they can't die tonight, but 1 is drunk until dusk.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "gambler",
+            "name": "Gambler",
+            "description": "Each night (but not the first night), choose a player & guess their character: if you guess wrong, you die.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "gossip",
+            "name": "Gossip",
+            "description": "Each day, you may make a public statement. Tonight, if it was true, a player dies.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "courtier",
+            "name": "Courtier",
+            "description": "Once per game, at night, choose a character: they are drunk for 3 nights & 3 days.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "professor",
+            "name": "Professor",
+            "description": "Once per game, at night (but not the first night), choose a dead player: if they are a Townsfolk, they are resurrected.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "minstrel",
+            "name": "Minstrel",
+            "description": "When a Minion dies by execution, all other players (except Travellers) are drunk until dusk tomorrow.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "tea-lady",
+            "name": "Tea Lady",
+            "description": "If both your alive neighbors are good, they can't die.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "pacifist",
+            "name": "Pacifist",
+            "description": "Executed good players might not die.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "fool",
+            "name": "Fool",
+            "description": "The 1st time you die, you don't.",
+            "icon": "",
+            "rules": [
+            ]
+          }
+        ],
+        "outsiders": [
+          {
+            "key": "goon",
+            "name": "Goon",
+            "description": "Each night, the 1st player to choose you with their ability is drunk until dusk. You become their alignment.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "lunatic",
+            "name": "Lunatic",
+            "description": "You think you are a Demon, but you are not. The Demon knows who you are & who you choose at night.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "tinker",
+            "name": "Tinker",
+            "description": "You might die at any time.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "moonchild",
+            "name": "Moonchild",
+            "description": "When you learn that you died, publicly choose 1 alive player. Tonight, if it was a good player, they die.",
+            "icon": "",
+            "rules": [
+            ]
+          }
+        ],
+        "minions": [
+          {
+            "key": "godfather",
+            "name": "Godfather",
+            "description": "You start knowing which Outsiders are in play. If 1 died today, choose a player tonight: they die. (-1 or +1 Outsider)",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "devils-advocate",
+            "name": "Devil's Advocate",
+            "description": "Each night, choose a living player (different to last night): if executed tomorrow, they don't die.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "assassin",
+            "name": "Assassin",
+            "description": "Once per game, at night (but not the first night), choose a player: they die, even if for some reason they could not.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "mastermind",
+            "name": "Mastermind",
+            "description": "If the Demon dies by execution (ending the game), play for 1 more day. If a player is then executed, their team loses.",
+            "icon": "",
+            "rules": [
+            ]
+          }
+        ],
+        "demon": [
+          {
+            "key": "zombuul",
+            "name": "Zombuul",
+            "description": "Each night (but not the first night), if no-one died today, choose a player: they die. The 1st time you die, you live but register as dead.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "pukka",
+            "name": "Pukka",
+            "description": "Each night, choose a player: they are poisoned. The previously poisoned player dies then becomes healthy.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "shabaloth",
+            "name": "Shabaloth",
+            "description": "Each night (but not the first night), choose 2 players: they die. A dead player you chose last night might be regurgitated.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "po",
+            "name": "Po",
+            "description": "Each night (but not the first night), you may choose a player: they die. If your last choice was no-one, choose 3 players tonight.",
+            "icon": "",
+            "rules": [
+            ]
+          }
+        ],
+        "travelers": [
+          {
+            "key": "apprentice",
+            "name": "Apprentice",
+            "description": "On your 1st night, you gain a Townsfolk ability (if good), or a Minion ability (if evil).",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "matron",
+            "name": "Matron",
+            "description": "Each day, you may choose up to 3 sets of 2 players to swap seats. Players may not leave their seats to talk in private.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "judge",
+            "name": "Judge",
+            "description": "Once per game, if another player nominated, you may choose to force the current execution to pass or fail.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "voudon",
+            "name": "Voudon",
+            "description": "Only you & the dead can vote. They don't need a vote token to do so. A 50% majority isn't required.",
+            "icon": "",
+            "rules": [
+            ]
+          },
+          {
+            "key": "biship",
+            "name": "Bishop",
+            "description": "Only the Storyteller can nominate. At least 1 opposing player must be nominated each day.",
+            "icon": "",
+            "rules": [
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "key": "sects-and-violets",
+      "name": "Sects & Violets",
+      "difficulty": 3,
+      "description": "",
+      "icon": ""
+    },
+    {
+      "key": "fabled",
+      "name": "Fabled Characters",
+      "difficulty": 0,
+      "description": "",
+      "icon": ""
+    },
+    {
+      "key": "extra",
+      "name": "Extra Characters",
+      "difficulty": 0,
+      "description": "",
+      "icon": ""
+    },
+    {
+      "key": "custom",
+      "name": "Custom Characters",
+      "difficulty": 0,
+      "description": "",
+      "icon": ""
+    }
+  ]
+}

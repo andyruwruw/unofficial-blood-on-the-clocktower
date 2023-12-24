@@ -1,0 +1,17 @@
+node_modules
+.env
+logs
+world
+banned-ips.json
+banned-players.json
+ops.json
+server.properties
+usercache.json
+whitelist.json
+eula.txt
+dist
+server.jar
+libraries
+fabric-server-launch.jar
+fabric-server-launcher.properties
+fabricloader.log
